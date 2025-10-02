@@ -1,0 +1,42 @@
+{
+  "name": "splitstack/enum-friendly-core",
+  "type": "library",
+  "version": "1.0.0",
+  "description": "A dependency-free PHP package that provides enhanced functionality for PHP enums including conversion utilities, validation helpers, and developer-friendly features",
+  "keywords": [
+    "php",
+    "enum",
+    "typescript",
+    "friendly",
+    "core",
+    "utilities"
+  ],
+  "require": {
+    "php": "^8.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0|^10.0"
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit --colors=always --no-coverage",
+    "test:coverage": "docker compose exec php vendor/bin/phpunit --colors=always --coverage-html coverage && start coverage/index.html"
+  },
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Splitstack\\EnumFriendly\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Splitstack\\EnumFriendly\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "EmilienKopp"
+    }
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
