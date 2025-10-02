@@ -102,7 +102,7 @@ enum MyEnum: string
 | `readable()` | Get case names in human-readable format | `['Active', 'Inactive']` |
 | `implode(string $glue = ',')` | Implode the enum values | `'active,inactive'` |
 | `toOptionsArray()` | Get enum as form select options array | `[['value' => 'active', 'label' => 'Active'], ...]` |
-| `toreadable()` | Get enum as value => readable label mapping | `['active' => 'Active', 'inactive' => 'Inactive']` |
+| `toReadableArray()` | Get enum as value => readable label mapping | `['active' => 'Active', 'inactive' => 'Inactive']` |
 | `toArray()` | Get enum as value => case name mapping | `['active' => 'ACTIVE', 'inactive' => 'INACTIVE']` |
 | `toJsonArray()` | Get enum as case name => value mapping | `['ACTIVE' => 'active', 'INACTIVE' => 'inactive']` |
 | `random()` | Get a random enum value | `'active'` or `'inactive'` |
