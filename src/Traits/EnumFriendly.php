@@ -426,25 +426,29 @@ trait EnumFriendly
   }
 
   /**
-   * Get only specific enum cases by their values.
+   * Get only specific enum values by filtering.
    * 
-   * Filters the enum cases to return only those whose values (or names for unbacked enums)
-   * are included in the provided array. Supports both strict and loose comparison.
+   * Filters the enum values to return only those that are included
+   * in the provided array. Supports both strict and loose comparison.
    *
    * @param array<string|int> $values Array of values to include
    * @param bool $strict Whether to use strict comparison (default: true)
-   * @return array<static> Array of filtered enum cases
+   * @return array<string|int> Array of filtered enum values
    * 
    * @example
-   * // Get only cases with specific values
-   * $specificStatuses = UserStatus::onlyValues(['active', 'pending']);
+   * // Get only specific values
+   * $specificValues = UserStatus::onlyValues(['active', 'pending']);
+   * // Returns ['active', 'pending'] (only the values that exist in the enum)
    */
   public static function onlyValues(array $values, bool $strict = true): array
   {
-    return array_filter(
-      self::cases(),
-      fn($case) => in_array(property_exists($case, 'value') ? $case->value : $case->name, $values, $strict)
-    );
+    $enumValues = self::values();
+    
+    if ($strict) {
+      return array_filter($enumValues, fn($enumValue) => in_array($enumValue, $values, true));
+    }
+    
+    return array_intersect($enumValues, $values);
   }
 
   /**
@@ -466,25 +470,29 @@ trait EnumFriendly
   }
 
   /**
-   * Get all enum cases except specific ones by their values.
+   * Get all enum values except specific ones.
    * 
-   * Filters the enum cases to exclude those whose values (or names for unbacked enums)
-   * are included in the provided array. Supports both strict and loose comparison.
+   * Filters the enum values to exclude those that are included
+   * in the provided array. Supports both strict and loose comparison.
    *
    * @param array<string|int> $values Array of values to exclude
    * @param bool $strict Whether to use strict comparison (default: true)
-   * @return array<static> Array of remaining enum cases
+   * @return array<string|int> Array of remaining enum values
    * 
    * @example
-   * // Get all statuses except specific values
-   * $allowedStatuses = UserStatus::exceptValues(['inactive', 'deleted']);
+   * // Get all values except specific ones
+   * $allowedValues = UserStatus::exceptValues(['inactive', 'deleted']);
+   * // Returns ['active', 'pending'] (all values except the excluded ones)
    */
   public static function exceptValues(array $values, bool $strict = true): array
   {
-    return array_filter(
-      self::cases(),
-      fn($case) => !in_array(property_exists($case, 'value') ? $case->value : $case->name, $values, $strict)
-    );
+    $enumValues = self::values();
+    
+    if ($strict) {
+      return array_filter($enumValues, fn($enumValue) => !in_array($enumValue, $values, true));
+    }
+    
+    return array_diff($enumValues, $values);
   }
 
   /**

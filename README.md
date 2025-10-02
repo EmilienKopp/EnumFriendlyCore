@@ -111,9 +111,9 @@ enum MyEnum: string
 | `coerceValue($value)` | Safely convert value to enum value | `'active'` or `null` |
 | `hasValue($value)` | Check if value exists in enum | `true` or `false` |
 | `only($cases)` | Filter enum cases by names | `[MyEnum::ACTIVE]` |
-| `onlyValues($values)` | Filter enum cases by values | `[MyEnum::ACTIVE]` |
+| `onlyValues($values)` | Filter enum values by values | `['active', 'pending']` |
 | `except($cases)` | Exclude enum cases by names | `[MyEnum::INACTIVE]` |
-| `exceptValues($values)` | Exclude enum cases by values | `[MyEnum::INACTIVE]` |
+| `exceptValues($values)` | Exclude enum values by values | `['pending', 'completed']` |
 | `count()` | Get total number of enum cases | `2` |
 | `isBacked()` | Check if enum is backed | `true` or `false` |
 | `toTypeScript()` | Make enum TypeScript-friendly | `['type' => 'MyEnum', 'values' => [...]]` |
@@ -180,7 +180,7 @@ $activeCases = UserStatus::only(['ACTIVE', 'PENDING']);
 // Exclude specific cases  
 $nonSuspendedCases = UserStatus::except(['SUSPENDED']);
 
-// Filter by values
+// Filter by values - returns array of values
 $validStatuses = UserStatus::onlyValues(['active', 'pending']);
 
 // Get random values for testing

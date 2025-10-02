@@ -446,22 +446,19 @@ class EnumsTest extends TestCase
         // String backed enum - only specific values
         $strOnlyValues = TestStatusStr::onlyValues(['pending', 'completed']);
         $this->assertCount(2, $strOnlyValues);
-        $values = array_map(fn($case) => $case->value, $strOnlyValues);
-        $this->assertContains('pending', $values);
-        $this->assertContains('completed', $values);
+        $this->assertContains('pending', $strOnlyValues);
+        $this->assertContains('completed', $strOnlyValues);
 
         // Int backed enum - only specific values
         $intOnlyValues = TestStatusInt::onlyValues([1, 3]);
         $this->assertCount(2, $intOnlyValues);
-        $values = array_map(fn($case) => $case->value, $intOnlyValues);
-        $this->assertContains(1, $values);
-        $this->assertContains(3, $values);
+        $this->assertContains(1, $intOnlyValues);
+        $this->assertContains(3, $intOnlyValues);
 
         // Unbacked enum - only specific names (since unbacked)
         $unbackedOnlyValues = TestStatusUnbacked::onlyValues(['PENDING']);
         $this->assertCount(1, $unbackedOnlyValues);
-        $names = array_map(fn($case) => $case->name, $unbackedOnlyValues);
-        $this->assertContains('PENDING', $names);
+        $this->assertContains('PENDING', $unbackedOnlyValues);
 
         // Test strict vs non-strict comparison for int enum
         $strictResult = TestStatusInt::onlyValues(['1'], true);
@@ -505,23 +502,20 @@ class EnumsTest extends TestCase
         // String backed enum - exclude specific values
         $strExceptValues = TestStatusStr::exceptValues(['in_progress']);
         $this->assertCount(2, $strExceptValues);
-        $values = array_map(fn($case) => $case->value, $strExceptValues);
-        $this->assertContains('pending', $values);
-        $this->assertContains('completed', $values);
-        $this->assertNotContains('in_progress', $values);
+        $this->assertContains('pending', $strExceptValues);
+        $this->assertContains('completed', $strExceptValues);
+        $this->assertNotContains('in_progress', $strExceptValues);
 
         // Int backed enum - exclude multiple values
         $intExceptValues = TestStatusInt::exceptValues([1, 3]);
         $this->assertCount(1, $intExceptValues);
-        $values = array_map(fn($case) => $case->value, $intExceptValues);
-        $this->assertContains(2, $values);
+        $this->assertContains(2, $intExceptValues);
 
         // Unbacked enum - exclude specific names
         $unbackedExceptValues = TestStatusUnbacked::exceptValues(['COMPLETED']);
         $this->assertCount(2, $unbackedExceptValues);
-        $names = array_map(fn($case) => $case->name, $unbackedExceptValues);
-        $this->assertContains('PENDING', $names);
-        $this->assertContains('IN_PROGRESS', $names);
+        $this->assertContains('PENDING', $unbackedExceptValues);
+        $this->assertContains('IN_PROGRESS', $unbackedExceptValues);
 
         // Test strict vs non-strict comparison
         $strictResult = TestStatusInt::exceptValues(['2'], true);
