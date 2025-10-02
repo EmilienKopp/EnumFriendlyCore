@@ -529,6 +529,23 @@ trait EnumFriendly
   }
 
   /**
+   * Convert to JSON-friendly format
+   * 
+   * Returns a JSON string representing the enum as an associative array
+   * of value => name pairs.
+   * 
+   * @param int $options JSON encoding options
+   * @return string The JSON-encoded enum representation
+   * 
+   * @example
+   * UserStatus::toJson() // Returns '{"active":"Active","inactive":"Inactive","pending":"Pending"}'
+   */
+  public static function toJsonReadable(int $options = 0): string
+  {
+    return json_encode(self::toReadableArray(), $options);
+  }
+
+  /**
    * Check if the enum is backed (has underlying values).
    * 
    * Determines whether the enum is a backed enum (extends BackedEnum)
